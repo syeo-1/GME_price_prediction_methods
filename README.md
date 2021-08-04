@@ -65,3 +65,15 @@ git add README.md
 ```
 git commit -m "added git commands to readme"
 ```
+
+### pushing changes to the remote repository (the one that's on the internet)
+```
+git push
+```
+
+### merging the branch to dev
+- click on "branches" this is directly left of the "tags" element on the repository's home page
+- find your branch, then click "new pull request"
+- for base select "dev" instead of main. Github will give a green check if you can automatically merge
+- click "create pull request". This will bring you to a new page
+- Since I own the repo, I suspect only I can actually do merging. At this point, we discuss changes super briefly, and I can merge your pull request
