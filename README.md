@@ -19,7 +19,7 @@ When you write commit messages, try to keep them short and clear as to what you'
 # some git commands
 
 
-### cloning
+### cloning: copy remote (internet) repository to edit locally
 ```
 git clone git@github.com:syeo-1/GME_price_prediction_methods.git
 ```
@@ -28,7 +28,7 @@ git clone git@github.com:syeo-1/GME_price_prediction_methods.git
 ```
 git checkout dev
 ```
-The above assumes dev already exists
+The above assumes the dev brach already exists
 
 ### create a new branch from your current branch and simulatenously switch to it
 ```
@@ -60,20 +60,29 @@ git add -A
 ```
 git add README.md
 ```
+Add changes to files you've made (eg. git add lstm_gme.ipynb)
 
 ### commiting changes to your current branch with a message
 ```
 git commit -m "added git commands to readme"
 ```
 
-### pushing changes to the remote repository (the one that's on the internet)
+### pushing changes to the remote repository (the one that's on the internet) from your local copy
 ```
 git push
 ```
 
-### merging the branch to dev
+### merging specific branch to dev
 - click on "branches" this is directly left of the "tags" element on the repository's home page
 - find your branch, then click "new pull request"
 - for base select "dev" instead of main. Github will give a green check if you can automatically merge
 - click "create pull request". This will bring you to a new page
-- Since I own the repo, I suspect only I can actually do merging. At this point, we discuss changes super briefly, and I can merge your pull request
+- Since I own the repo, I suspect only I can actually do merging. At this point, we discuss changes super briefly, and I can merge your pull request to dev
+
+### merging the dev branch to main
+- after verifying dev still works, we can merge dev to main by making a pull request from dev to main
+- click on "branches" this is directly left of the "tags" element on the repository's home page
+- find dev, then click "new pull request"
+- for base select "main" (if not already selected)
+- click "create pull request". This will bring you to a new page
+- We discuss changes super briefly, and I can merge dev to main
