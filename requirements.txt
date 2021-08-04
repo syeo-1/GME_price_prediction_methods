@@ -5,3 +5,5 @@ keras
 matplotlib
 requests
 ta
+nltk
+pickle
