@@ -1,0 +1,16 @@
+seng474_project
+.vscode
+.ipynb_checkpoints
+__pycache__
+config.py
+data_retriever.py
+decision_tree_original.ipynb
+GME_processed.csv
+output.txt
+sentiment_analysis.ipynb
+test_discussion_data.py
+top_comments.ipynb
+top_gme_comments.py
+Untitled.ipynb
+gather_reddit_data.py
+.DS_Store
