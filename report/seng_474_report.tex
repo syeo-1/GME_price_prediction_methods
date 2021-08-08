@@ -1,0 +1,199 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+     \usepackage[nonatbib]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\title{Gamestop Corporation Share Price Prediction Methods}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+\author{Sean Yeo}
+\author{%
+  David S.~Hippocampus\thanks{Use footnote for providing further information
+    about author (webpage, alternative address)---\emph{not} for acknowledging
+    funding agencies.} \\
+  Department of Computer Science\\
+  Cranberry-Lemon University\\
+  Pittsburgh, PA 15213 \\
+  \texttt{hippo@cs.cranberry-lemon.edu} \\
+  % examples of more authors
+   \And
+   Coauthorgwaegaw \\
+   Affiliationawge \\
+   Addressagweg \\
+   \texttt{me@gmail.com} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+\nolinenumbers
+
+\maketitle
+
+\begin{abstract}
+  This report offers a comparison between decision trees and LSTM neural networks for predicting Gamestop Corporation share price movements year-to-date. Additionally, sentiment scores of daily online forum text from Reddit is used in an attempt to increase the prediction accuracy of the aforementioned methods.
+\end{abstract}
+
+\section{Introduction}
+
+Within the last year, people have flocked to online trading platforms and forums to discuss investment strategies and opinions. In particular, one company this year has caught the attention of mainstream media, large hedge funds, the SEC, and average citizens alike: Gamestop Corporation. With how volatile the stock has become, it would be paramount to have a playbook of more advanced strategies other than buying and holding in hopes of a payout.
+
+This report offers a comparison of machine learning methods to predict price movements using decision trees in Sklearn and LSTM neural networks in Keras using daily open, high, low, and close data from Yahoo Finance. Additionally, daily sentiment scores of post titles from two subreddits (r/GME, r/Superstonk), as well as top comments from across Reddit with GME as a substring are used to help in price movement prediction.
+
+
+
+\section{Method Choice Background}
+\label{gen_inst}
+
+\subsection{Decision Tree}
+Stuff about Decision Tree
+\subsection{LSTM Neural Network}
+Because LSTMs offered the ability to retain memory of previously encountered patterns in data for longer sequences, we thought that this method would be well suited for this problem. Although standard RNNs are also capable of working with time series data, due to their inability to work with longer series of data from the vanishing gradient problem, their usage was ultimately scrapped for this project.
+
+\section{Data Usage and Background}
+\subsection{Data Processing}
+
+Daily open, high, low, and close price data was gathered from Yahoo Finance due to its availability and accuracy. One key problem with trying to predict Gamestop share prices was its volatility, as well as recent changes in its pattern at the start of 2021 due to subreddits such as r/wallstreetbets. In order to compensate for this, we decided to linearly interpolate the open, high, low, and close data points to increase the size of the data set before doing any additional processing. In particular, before creating additional features, we wanted the data set to have around ten thousand rows. This required each day to have an additional seventy-one data points.
+
+If data augmentation is not used, the final data set size after all processing, would come out to be around one hundred and forty rows. However, with linear interpolation, the data set ends up being around seven-thousand eight-hundred rows after processing.
+
+Although it is possible to train both decision trees and LSTMs using smaller data sets, using such a data set would likely decrease the accuracy of both methods. This is due to the high variance of smaller data sets, which is further magnified by the volatility of this particular company's share prices year-to-date.
+
+(maybe add details for data prep for LSTM if not enough writing)
+
+\subsection{Sentiment Data}
+In order to acquire post titles and comments from Reddit, we decided to use the Pushshift API. This API allows scraping posts and comments from specific Subreddits. In particular the post titles of daily top posts based on the number of upvotes from two different subreddits were taken from January 1, 2021 to July 25, 2021. In addition to this, top daily comments from across Reddit with the substring GME were also scraped and used for sentiment analysis.
+
+(Details on sentiment analysis part)
+
+
+Second-level headings should be in 10-point type.
+
+\subsection{Technical Indicators}
+
+Technical indicators are values that can be calculated from open, high, low, close, and volume data. These values are used in practice to help predict future price movements. In particular, we chose three technical indicators: Relative Strength Index (RSI), moving averages, one for fourteen days (SMA), one for thirty days (LMA), as well as the Average Directional Movement Index (ADX).
+
+ADX was chosen in combination with the RSI technical indicator. This is because ADX values help in detecting the severity of price trends; the higher its values, the stronger the trend. However, it does not know whether the price is going up or down. the RSI value compensates for the ADX by detecting entry signals (when to buy/sell a security.
+
+Lastly, two moving average indicators are used, denoted by SMA (Small Moving Average) and LMA (Long Moving Average). Another common technical trading strategy is the Golden Cross (or Death Cross) Trading strategy. This uses two moving averages, typically the fifty day and two-hundred day moving average values. When the fifty day moving average is below the two-hundred day moving average, this means that the stock price is in a downward trend. However, at some point, the stock price will begin to go up. For this to occur, the shorter length average (the fifty day moving average in this case), must go higher than the two-hundred day moving average. This is known as the Golden Cross and would indicate a "buy" entry point. On the other hand, when the fifty day moving average crosses below the two-hundred day moving average, this would indicate an exit (sell) point, which is known as the Death Cross.
+
+Although fifty and two-hundred moving averages are the most common values used, there is no reason other values for the number of days in each moving average cannot be used. It seems that as long as the shorter moving average is at most half of the longer and the smaller of the two is at least 15, the strategy can still be used. Due to the actual number of days available for data, we decided to opt for the smallest possible value for each, to maximize the data set size.
+
+\subsection{Tables (use for examples when need to compare metrics)}
+
+All tables must be centered, neat, clean and legible.  The table number and
+title always appear before the table.  See Table~\ref{sample-table}.
+
+Place one line space before the table title, one line space after the
+table title, and one line space after the table. The table title must
+be lower case (except for first word and proper nouns); tables are
+numbered consecutively.
+
+Note that publication-quality tables \emph{do not contain vertical rules.} We
+strongly suggest the use of the \verb+booktabs+ package, which allows for
+typesetting high-quality, professional tables:
+\begin{center}
+  \url{https://www.ctan.org/pkg/booktabs}
+\end{center}
+This package was used to typeset Table~\ref{sample-table}.
+
+\begin{table}
+  \caption{Sample table title}
+  \label{sample-table}
+  \centering
+  \begin{tabular}{lll}
+    \toprule
+    \multicolumn{2}{c}{Part}                   \\
+    \cmidrule(r){1-2}
+    Name     & Description     & Size ($\mu$m) \\
+    \midrule
+    Dendrite & Input terminal  & $\sim$100     \\
+    Axon     & Output terminal & $\sim$10      \\
+    Soma     & Cell body       & up to $10^6$  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Comparison of Methods without Sentiment Data}
+details
+
+\section{Comparison of Methods with Sentiment Data}
+
+details
+
+\section{Further Improvements}
+
+details
+
+\section{Conclusion}
+
+details
+
+
+\section*{References (follow example formatting given)}
+
+References follow the acknowledgments. Use unnumbered first-level heading for
+the references. Any choice of citation style is acceptable as long as you are
+consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
+when listing the references.
+{\bf Note that the Reference section does not count towards the eight pages of content that are allowed.}
+\medskip
+
+\small
+
+[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
+connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
+(eds.), {\it Advances in Neural Information Processing Systems 7},
+pp.\ 609--616. Cambridge, MA: MIT Press.
+
+[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
+  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
+TELOS/Springer--Verlag.
+
+[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
+recall at excitatory recurrent synapses and cholinergic modulation in rat
+hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
+
+\end{document}
